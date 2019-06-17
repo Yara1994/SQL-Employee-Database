@@ -97,7 +97,11 @@ SELECT COUNT(*) FROM titles;
 SELECT * FROM employees;
 SELECT * FROM salaries;
 
-SELECT e.emp_no AS employee_number, e.last_name, e.first_name, e.gender, s.salary	
+SELECT  e.emp_no AS employee_number, 
+		e.last_name, 
+		e.first_name, 
+		e.gender, 
+		s.salary	
 FROM employees AS e
 JOIN salaries AS s ON
 e.emp_no = s.emp_no
@@ -108,7 +112,10 @@ ORDER BY employee_number;
 
 SELECT * FROM employees;
 
-SELECT e.emp_no AS employee_number, e.last_name, e.first_name, e.hire_date 
+SELECT  e.emp_no AS employee_number, 
+		e.last_name, 
+		e.first_name, 
+		e.hire_date 
 FROM employees AS e
 WHERE e.hire_date >= '1986-01-01' and e.hire_date <= '1986-12-31';
 
@@ -158,7 +165,8 @@ ORDER BY employee_number;
 
 SELECT * FROM employees;
 
-SELECT e.first_name, e.last_name
+SELECT  e.first_name, 
+		e.last_name
 FROM employees e
 WHERE e.first_name = 'Hercules' AND e.last_name LIKE 'B%'
 ORDER BY e.last_name;
@@ -206,10 +214,28 @@ ORDER BY e.emp_no;
 
 SELECT * FROM employees;
 
-SELECT e.last_name, COUNT(e.last_name) AS frequency_count
+SELECT  e.last_name, 
+		COUNT(e.last_name) AS frequency_count
 FROM employees e
 GROUP BY e.last_name
 ORDER BY frequency_count DESC;
+
+
+-- BONUS
+
+-- Average salary by title.
+
+SELECT * FROM salaries;
+SELECT * FROM titles;
+
+SELECT  t.title,
+		ROUND(AVG(s.salary),2) AS average_salary
+FROM titles t
+LEFT JOIN salaries s
+ON t.emp_no = s.emp_no
+WHERE t.to_date = '1/1/9999'
+GROUP BY t.title
+ORDER BY average_salary DESC;
 
 
 -- EPILOGUE
@@ -219,6 +245,7 @@ SELECT * FROM employees;
 SELECT * 
 FROM employees e
 WHERE e.emp_no = 499942;
+
 
 
 
